@@ -26,6 +26,7 @@ const Dashboard = () => {
 
   return (
     <div>
+     
 
       <div className="min-h-screen bg-gray-100 p-4">
         <h2 className="text-2xl font-semibold mb-4">Dashboard</h2>

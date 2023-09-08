@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import React, { useEffect, useState } from 'react';
+import { useAuthState, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase/Firebase';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,8 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate()
-  const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, cUser, loading, error] = useCreateUserWithEmailAndPassword(auth);
+  const [user]= useAuthState(auth)
 
 
   const handleRegister = (e) => {
@@ -21,8 +22,16 @@ const Register = () => {
     createUserWithEmailAndPassword(email, password)
     // const storedData = localStorage.getItem('user');
     localStorage.setItem('user', user?.email);
-    navigate("/home")
+   
+   
   };
+
+ 
+  if(cUser || user){
+       navigate("/dashboard")
+    }
+
+  
   // if (user) {
   //   console.log(user)
 
@@ -32,7 +41,7 @@ const Register = () => {
   const passwordsMatch = password === confirmPassword;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className={`min-h-screen  flex items-center justify-center bg-gray-100 `}>
       <div className="bg-white p-8 rounded shadow-md w-96">
         <h2 className="text-2xl font-semibold mb-4">Registration</h2>
         <form onSubmit={handleRegister}>
@@ -84,6 +93,7 @@ const Register = () => {
           </div>
 
           <button
+         
             disabled={!passwordsMatch}
             type="submit"
             className={`${!passwordsMatch
@@ -91,6 +101,7 @@ const Register = () => {
               : 'bg-blue-500 hover:bg-blue-600'
               } text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-300`}
           >
+            
             Registration
           </button>
         </form>
