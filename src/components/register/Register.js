@@ -19,6 +19,8 @@ const Register = () => {
     console.log('Password:', password);
     console.log('Confirm Password:', confirmPassword);
     createUserWithEmailAndPassword(email, password)
+    // const storedData = localStorage.getItem('user');
+    localStorage.setItem('user', user?.email);
     navigate("/home")
   };
   // if (user) {

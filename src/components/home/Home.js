@@ -13,12 +13,7 @@ const Home = () => {
   
 
   // Simulated data for demonstration purposes
-  const sampleTasks = [
-    { id: 1, title: 'Task 1', status: 'completed' },
-    { id: 2, title: 'Task 2', status: 'in progress' },
-    { id: 3, title: 'Task 3', status: 'pending' },
-    // Add more task data as needed
-  ];
+  const sampleTasks =   JSON.parse(localStorage.getItem('tasks')) || [];
 
   useEffect(() => {
     // In a real application, you would fetch task data from your backend or storage.
@@ -28,7 +23,7 @@ const Home = () => {
 
   // Calculate task statistics
   const completedTasks = tasks.filter((task) => task.status === 'completed').length;
-  const inProgressTasks = tasks.filter((task) => task.status === 'in progress').length;
+  const inProgressTasks = tasks.filter((task) => task.status === 'inProgress').length;
   const pendingTasks = tasks.filter((task) => task.status === 'pending').length;
 
   return (

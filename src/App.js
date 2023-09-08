@@ -14,6 +14,8 @@ import Profile from './components/profile/Profile';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebase/Firebase';
 import Navbar from './components/navbar/Navbar';
+import Task from './components/task/Task';
+import TeamManagement from './components/team/TeamManagement';
 
 
 
@@ -24,26 +26,26 @@ const [user]=  useAuthState(auth)
 
     <div className="App">
       <header>
-        <h2 className="text-2xl font-semibold mb-4 text-center">Task ManagementSystem</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-center">Task Management System</h2>
       </header>
       {/* Include the Navbar component */}
       {/* <Login></Login> */}
       {
         user && <Navbar></Navbar>
       }
-
+ 
       <Routes>
         <Route path="/" element={<Login />} />
-        
-
         <>
           <Route path="/home" element={<Home />} />
-          <Route path="/profile" element={<Profile />}></Route>
+          <Route path="/profile" element={<Profile />}/>
           <Route path="/register" element={<Register />} />
-          <Route path="/teams" element={<TeamList />} />
-          <Route path="/teamsDetail" element={<TeamDetail />} />
-          <Route path="/tasks" element={<TaskList />} />
-          <Route path="/tasks/create" element={<TaskForm />} />
+          <Route path="/task" element={<Task></Task>}/>
+          <Route path="/teamManagement" element={<TeamManagement></TeamManagement>}/>
+          {/* <Route path="/teams" element={<TeamList />} />
+          <Route path="/teamDetail" element={<TeamDetail />} />
+          <Route path="/tasks" element={<TaskList />} /> 
+          <Route path="/tasks/create" element={<TaskForm />} />*/}
         </>
       </Routes>
     </div>

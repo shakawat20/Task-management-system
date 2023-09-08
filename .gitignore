@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-
+/firebaseKey.js
 # production
 /build
 

@@ -1,54 +1,45 @@
-// components/Task/TaskList.js
+import React from 'react';
 
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-
-const TaskList = () => {
-  // State to store task data
-  const [tasks, setTasks] = useState([]);
-
-  // Simulated data for demonstration purposes
-  const sampleTasks = [
-    { id: 1, title: 'Task 1', description: 'Complete project report', dueDate: '2023-09-30', priority: 'High', status: 'in progress' },
-    { id: 2, title: 'Task 2', description: 'Prepare presentation slides', dueDate: '2023-10-15', priority: 'Medium', status: 'pending' },
-    { id: 3, title: 'Task 3', description: 'Review client feedback', dueDate: '2023-09-20', priority: 'Low', status: 'completed' },
-    // Add more task data as needed
-  ];
-
-  useEffect(() => {
-    // In a real application, you would fetch task data from your backend or storage.
-    // For this example, we're using simulated data.
-    setTasks(sampleTasks);
-  }, []);
-
+const TaskList=({ tasks, deleteTask, toggleTaskStatus }) =>{
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <h2 className="text-2xl font-semibold mb-4">Task List</h2>
-      <table className="table-auto w-full">
-        <thead>
-          <tr>
-            <th className="px-4 py-2">Title</th>
-            <th className="px-4 py-2">Description</th>
-            <th className="px-4 py-2">Due Date</th>
-            <th className="px-4 py-2">Priority</th>
-            <th className="px-4 py-2">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task) => (
-            <tr key={task.id}>
-              <td className="border px-4 py-2">{task.title}</td>
-              <td className="border px-4 py-2">{task.description}</td>
-              <td className="border px-4 py-2">{task.dueDate}</td>
-              <td className="border px-4 py-2">{task.priority}</td>
-              <td className={`border px-4 py-2 text-${task.status === 'completed' ? 'green' : 'blue'}-500`}>{task.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <Link to='/tasks/create'>Add Task</Link>
+    <div className="bg-gray-100 p-4 rounded shadow">
+      <h2 className="text-xl mb-4">Task List</h2>
+      <ul>
+        {tasks.map((task) => (
+          <li key={task.id} className="mb-4 p-4 border rounded">
+            <h3 className="text-lg font-semibold">{task.title}</h3>
+            <p className="text-gray-700">{task.description}</p>
+            <p className="text-gray-700">Due Date: {task.dueDate}</p>
+            <p className="text-gray-700">Priority: {task.priority}</p>
+            <p className="text-gray-700">
+              Status: {task.status === 'completed'
+                ? 'Completed'
+                : task.status === 'inProgress'
+                  ? 'In Progress'
+                  : 'Pending'}
+            </p>
+            <button
+              onClick={() => deleteTask(task.id)}
+              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-2"
+            >
+              Delete
+            </button>
+            <button
+              onClick={() => toggleTaskStatus(task.id)}
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-2 ml-2"
+            >
+              {task.status === 'completed'
+                ? 'Set In Progress'
+                : task.status === 'inProgress'
+                  ? 'Mark Pending'
+                  : 'Mark Completed'}
+            </button>
+
+          </li>
+        ))}
+      </ul>
     </div>
   );
-};
+}
 
 export default TaskList;

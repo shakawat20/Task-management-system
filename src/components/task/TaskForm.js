@@ -1,22 +1,20 @@
-// components/Task/TaskForm.js
-
+import { onAuthStateChanged } from 'firebase/auth';
 import React, { useState } from 'react';
+import { auth } from '../../firebase/Firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
-const TaskForm = () => {
-  // State to manage task input
+function TaskForm({ addTask }) {
+  const [user] = useAuthState(auth);
   const [task, setTask] = useState({
     title: '',
     description: '',
     dueDate: '',
     priority: 'Low',
+    status:'pending',
+    email:user?.email
   });
 
-  const handleTaskSubmit = (e) => {
-    e.preventDefault();
-    console.log('Task Data:', task);
-  };
-
-  const handleInputChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setTask({
       ...task,
@@ -24,56 +22,61 @@ const TaskForm = () => {
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (task.title.trim() === '') {
+      return; // Prevent adding empty tasks
+    }
+    addTask({ ...task, id: Date.now() }); // Assign a unique ID
+    setTask({
+      title: '',
+      description: '',
+      dueDate: '',
+      priority: 'Low',
+
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <h2 className="text-2xl font-semibold mb-4">Create New Task</h2>
-      <form onSubmit={handleTaskSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="title" className="block text-lg font-medium text-gray-700">Title:</label>
+    <div className="bg-gray-100 p-4 rounded shadow">
+      <h2 className="text-xl mb-4">Add New Task</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">Title:</label>
           <input
             type="text"
-            id="title"
             name="title"
-            placeholder="Enter task title"
             value={task.title}
-            onChange={handleInputChange}
-            className="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300"
-            required
+            onChange={handleChange}
+            className="border rounded w-full py-2 px-3"
           />
         </div>
-        <div>
-          <label htmlFor="description" className="block text-lg font-medium text-gray-700">Description:</label>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">Description:</label>
           <textarea
-            id="description"
             name="description"
-            placeholder="Enter task description"
             value={task.description}
-            onChange={handleInputChange}
-            className="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300"
-            required
+            onChange={handleChange}
+            className="border rounded w-full py-2 px-3"
           />
         </div>
-        <div>
-          <label htmlFor="dueDate" className="block text-lg font-medium text-gray-700">Due Date:</label>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">Due Date:</label>
           <input
             type="date"
-            id="dueDate"
             name="dueDate"
             value={task.dueDate}
-            onChange={handleInputChange}
-            className="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300"
-            required
+            onChange={handleChange}
+            className="border rounded w-full py-2 px-3"
           />
         </div>
-        <div>
-          <label htmlFor="priority" className="block text-lg font-medium text-gray-700">Priority:</label>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">Priority:</label>
           <select
-            id="priority"
             name="priority"
             value={task.priority}
-            onChange={handleInputChange}
-            className="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300"
-            required
+            onChange={handleChange}
+            className="border rounded w-full py-2 px-3"
           >
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
@@ -82,13 +85,13 @@ const TaskForm = () => {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-300"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
         >
-          Create Task
+          Add Task
         </button>
       </form>
     </div>
   );
-};
+}
 
 export default TaskForm;

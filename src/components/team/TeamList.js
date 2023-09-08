@@ -32,7 +32,7 @@ const TeamList = () => {
           </li>
         ))}
       </ul>
-      <Link to="/teamsDetail">
+      <Link to="/teamDetail">
       team detail
       </Link>
     </div>

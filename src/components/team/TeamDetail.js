@@ -1,38 +1,86 @@
-// components/Team/TeamDetail.js
+import React, { useState } from 'react';
 
-import React, { useState, useEffect } from 'react';
+function TeamDetail() {
+  const [tasks, setTasks] = useState([]);
+  const [newTask, setNewTask] = useState({ title: '', description: '', dueDate: '', priority: '', assignee: '' });
 
-const TeamDetail = ({ match }) => {
-  // State to store team data
-  const [team, setTeam] = useState(null);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewTask({ ...newTask, [name]: value });
+  };
 
-  // Simulated data for demonstration purposes
-  const sampleTeams = [
-    { id: 1, name: 'Team A', description: 'Team A is a software development team.' },
-    { id: 2, name: 'Team B', description: 'Team B handles marketing and promotions.' },
-    { id: 3, name: 'Team C', description: 'Team C focuses on customer support.' },
-    // Add more team data as needed
-  ];
-
-  useEffect(() => {
-    // In a real application, you would fetch team data by the team's ID from your backend or storage.
-    // For this example, we're using simulated data.
-    const teamId = parseInt(match.params.id, 10);
-    const selectedTeam = sampleTeams.find((team) => team.id === teamId);
-    setTeam(selectedTeam);
-  }, [match.params.id]);
-
-  if (!team) {
-    return <div className="min-h-screen bg-gray-100 p-4">Loading...</div>;
-  }
+  const handleTaskSubmit = () => {
+    setTasks([...tasks, newTask]);
+    setNewTask({ title: '', description: '', dueDate: '', priority: '', assignee: '' });
+  };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <h2 className="text-2xl font-semibold mb-4">{team.name}</h2>
-      <p className="text-lg text-gray-700">{team.description}</p>
-      {/* Add additional team details and functionality as needed */}
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Task asdsdsdsdsdsdsdsdsdManagement</h1>
+      <div className="mb-4">
+        <h2 className="text-xl font-semibold mb-2">Create a New Task</h2>
+        <input
+          type="text"
+          name="title"
+          placeholder="Title"
+          value={newTask.title}
+          onChange={handleInputChange}
+          className="border rounded-md p-2 mb-2"
+        />
+        <input
+          type="text"
+          name="description"
+          placeholder="Description"
+          value={newTask.description}
+          onChange={handleInputChange}
+          className="border rounded-md p-2 mb-2"
+        />
+        <input
+          type="date"
+          name="dueDate"
+          value={newTask.dueDate}
+          onChange={handleInputChange}
+          className="border rounded-md p-2 mb-2"
+        />
+        <select
+          name="priority"
+          value={newTask.priority}
+          onChange={handleInputChange}
+          className="border rounded-md p-2 mb-2"
+        >
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+        <input
+          type="text"
+          name="assignee"
+          placeholder="Assignee"
+          value={newTask.assignee}
+          onChange={handleInputChange}
+          className="border rounded-md p-2 mb-2"
+        />
+        <button onClick={handleTaskSubmit} className="bg-blue-500 text-white px-4 py-2 rounded-md">
+          Create Task
+        </button>
+      </div>
+      <div>
+        <h2 className="text-xl font-semibold mb-2">Task List</h2>
+        <ul>
+          {tasks.map((task, index) => (
+            <li key={index} className="border rounded-md p-4 mb-2">
+              <strong className="text-lg">{task.title}</strong>
+              <p className="mb-2">{task.description}</p>
+              <p className="mb-1">Due Date: {task.dueDate}</p>
+              <p className="mb-1">Priority: {task.priority}</p>
+              <p className="mb-1">Assignee: {task.assignee}</p>
+              {/* Add buttons for marking tasks as completed or in progress */}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
-};
+}
 
 export default TeamDetail;

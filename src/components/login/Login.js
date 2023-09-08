@@ -16,6 +16,7 @@ const Login = () => {
   
     console.log('Email:', email);
     console.log('Password:', password);
+    localStorage.setItem('user',gUser?.email)
   
   };
   if(gUser||user){
