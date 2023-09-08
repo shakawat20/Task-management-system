@@ -5,17 +5,15 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Login from './components/login/Login';
 import Register from './components/register/Register';
-import TaskList from './components/task/TaskList';
-import TaskForm from './components/task/TaskForm';
-import TeamList from './components/team/TeamList';
-import TeamDetail from './components/team/TeamDetail';
-import Home from './components/home/Home';
+
+
 import Profile from './components/profile/Profile';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebase/Firebase';
 import Navbar from './components/navbar/Navbar';
 import Task from './components/task/Task';
 import TeamManagement from './components/team/TeamManagement';
+import Dashboard from './components/home/Dashboard';
 
 
 
@@ -37,7 +35,7 @@ const [user]=  useAuthState(auth)
       <Routes>
         <Route path="/" element={<Login />} />
         <>
-          <Route path="/home" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />}/>
           <Route path="/register" element={<Register />} />
           <Route path="/task" element={<Task></Task>}/>

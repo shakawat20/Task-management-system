@@ -33,6 +33,7 @@ function TaskForm({ addTask }) {
       description: '',
       dueDate: '',
       priority: 'Low',
+      status:'pending'
 
     });
   };

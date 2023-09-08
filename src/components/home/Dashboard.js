@@ -5,14 +5,12 @@ import React, { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase/Firebase';
 import Navbar from '../navbar/Navbar';
-const Home = () => {
+const Dashboard = () => {
   // State to store task data
   const [tasks, setTasks] = useState([]);
   const [user, loading, error] = useAuthState(auth)
 
 
-
-  // Simulated data for demonstration purposes
   const sampleTasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
   useEffect(() => {
@@ -86,4 +84,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Dashboard;
