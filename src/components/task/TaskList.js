@@ -4,51 +4,11 @@ const TaskList = ({ tasks, deleteTask, toggleTaskStatus }) => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [dueDateFilter, setDueDateFilter] = useState('all');
 
-  // Function to check if a date is today
-  const isToday = (date) => {
-    const today = new Date();
-    
-    console.log(today)
-    return (
-      date.getDate() === today.getDate() &&
-      date.getMonth() === today.getMonth() &&
-      date.getFullYear() === today.getFullYear()
-    );
-  };
-
-  // Function to check if a date is tomorrow
-  const isTomorrow = (date) => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-
-    // Check if date is a string and parse it to a Date object if needed
-    if (typeof date === 'string') {
-      date = new Date(date);
-    }
-
-    return (
-      date.getDate() === tomorrow.getDate() &&
-      date.getMonth() === tomorrow.getMonth() &&
-      date.getFullYear() === tomorrow.getFullYear()
-    );
-  };
-
-  // Function to check if a date is in the future
-  const isFuture = (date) => {
-    const today = new Date();
-    return date > today;
-  };
-
-  // Filter tasks based on status and due date filters
+ 
   const filteredTasks = tasks.filter((task) => {
-    const isStatusMatch =
-      statusFilter === 'all' || task.status === statusFilter;
-    const isDueDateMatch =
-      dueDateFilter === 'all' ||
-      (dueDateFilter === 'today' && isToday(task.dueDate)) ||
-      (dueDateFilter === 'tomorrow' && isTomorrow(task.dueDate)) ||
-      (dueDateFilter === 'future' && isFuture(task.dueDate));
-    return isStatusMatch && isDueDateMatch;
+    const isStatusMatch =statusFilter === 'all' || task.status === statusFilter;
+   
+    return isStatusMatch;
   });
 
   return (
@@ -68,7 +28,7 @@ const TaskList = ({ tasks, deleteTask, toggleTaskStatus }) => {
           <option value="pending">Pending</option>
         </select>
       </div>
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <label htmlFor="dueDateFilter">Filter by Due Date:</label>
         <select
           id="dueDateFilter"
@@ -81,7 +41,7 @@ const TaskList = ({ tasks, deleteTask, toggleTaskStatus }) => {
           <option value="tomorrow">Tomorrow</option>
           <option value="future">Future</option>
         </select>
-      </div>
+      </div> */}
       <ul>
         {filteredTasks.map((task) => (
           <li key={task.id} className="mb-4 p-4 border rounded">
@@ -93,8 +53,8 @@ const TaskList = ({ tasks, deleteTask, toggleTaskStatus }) => {
               Status: {task.status === 'completed'
                 ? 'Completed'
                 : task.status === 'inProgress'
-                ? 'In Progress'
-                : 'Pending'}
+                  ? 'In Progress'
+                  : 'Pending'}
             </p>
             <button
               onClick={() => deleteTask(task.id)}
@@ -109,8 +69,8 @@ const TaskList = ({ tasks, deleteTask, toggleTaskStatus }) => {
               {task.status === 'completed'
                 ? 'Set In Progress'
                 : task.status === 'inProgress'
-                ? 'Mark Pending'
-                : 'Mark Completed'}
+                  ? 'Mark Pending'
+                  : 'Mark Completed'}
             </button>
           </li>
         ))}

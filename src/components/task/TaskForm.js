@@ -13,9 +13,10 @@ function TaskForm({ addTask }) {
     status:'pending',
     email:user?.email
   });
-
+console.log(task)
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
     setTask({
       ...task,
       [name]: value,
