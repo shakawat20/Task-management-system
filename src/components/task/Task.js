@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import TaskForm from './TaskForm';
 import TaskList from './TaskList';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../../firebase/Firebase';
 
 const Task = () => {
     const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('tasks')) || []);
-
-    console.log(tasks)
 
     // Function to add tasks
     const addTask = (newTask) => {

@@ -1,27 +1,31 @@
-import { onAuthStateChanged } from 'firebase/auth';
+
 import React, { useState } from 'react';
 import { auth } from '../../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 function TaskForm({ addTask }) {
   const [user] = useAuthState(auth);
+
+  
   const [task, setTask] = useState({
     title: '',
     description: '',
     dueDate: '',
     priority: 'Low',
     status:'pending',
-    email:user?.email
+    email:''
   });
-console.log(task)
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     
     setTask({
       ...task,
       [name]: value,
+      email:user.email
     });
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,8 +38,8 @@ console.log(task)
       description: '',
       dueDate: '',
       priority: 'Low',
-      status:'pending'
-
+      status:'pending',
+      email:''
     });
   };
 

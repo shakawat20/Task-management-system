@@ -9,6 +9,8 @@ const Dashboard = () => {
   // State to store task data
   const [tasks, setTasks] = useState([]);
   const [user, loading, error] = useAuthState(auth)
+  const filteredTasks=tasks.filter(task=>task.email===user?.email)
+  
 
 
   const sampleTasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -20,9 +22,9 @@ const Dashboard = () => {
   }, []);
 
   // Calculate task statistics
-  const completedTasks = tasks.filter((task) => task.status === 'completed').length;
-  const inProgressTasks = tasks.filter((task) => task.status === 'inProgress').length;
-  const pendingTasks = tasks.filter((task) => task.status === 'pending').length;
+  const completedTasks = filteredTasks.filter((task) => task.status === 'completed').length;
+  const inProgressTasks = filteredTasks.filter((task) => task.status === 'inProgress').length;
+  const pendingTasks = filteredTasks.filter((task) => task.status === 'pending').length;
 
   return (
     <div>
@@ -62,7 +64,7 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {tasks.map((task) => (
+            {filteredTasks.map((task) => (
               <tr key={task.id}>
                 <td className="px-6 py-4 whitespace-nowrap text-lg">{task.title}</td>
                 <td className={`px-6 py-4 whitespace-nowrap text-${task.status === 'completed' ? 'green' : 'blue'}-500`}>

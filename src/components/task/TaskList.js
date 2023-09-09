@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../../firebase/Firebase';
 
 const TaskList = ({ tasks, deleteTask, toggleTaskStatus }) => {
   const [statusFilter, setStatusFilter] = useState('all');
-  const [dueDateFilter, setDueDateFilter] = useState('all');
+  // const [dueDateFilter, setDueDateFilter] = useState('all');
+const [user]= useAuthState(auth)
 
  
-  const filteredTasks = tasks.filter((task) => {
+  const filteredTasks = tasks.filter(task=>task.email===user.email).filter((task) => {
     const isStatusMatch =statusFilter === 'all' || task.status === statusFilter;
    
     return isStatusMatch;
