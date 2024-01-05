@@ -11,6 +11,7 @@ const Register = () => {
   const navigate = useNavigate()
   const [createUserWithEmailAndPassword, cUser, loading, error] = useCreateUserWithEmailAndPassword(auth);
   const [user]= useAuthState(auth)
+  console.log(user.displayName)
 
 
   const handleRegister = (e) => {

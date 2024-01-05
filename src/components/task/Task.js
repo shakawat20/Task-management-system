@@ -15,6 +15,13 @@ const Task = () => {
     // Load tasks from local storage when the component mounts
     useEffect(() => {
         const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+        // fetch('https://task-management-server-self.vercel.app/tasks')
+        // .then(res=>res.json())
+        // .then(data=>{
+        //     console.log(data)
+        //     // setTasks(storedTasks);
+        // })
         setTasks(storedTasks);
 
     }, []);

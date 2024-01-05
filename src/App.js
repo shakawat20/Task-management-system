@@ -14,12 +14,12 @@ import Dashboard from './components/dashboard/Dashboard';
 
 
 function App() {
-const [user]=  useAuthState(auth)
-const navigate=useNavigate()
+  const [user] = useAuthState(auth)
+  const navigate = useNavigate()
 
-if(!user){
-  <div>loading</div>
-}
+  if (!user) {
+    <div>loading</div>
+  }
 
 
 
@@ -29,24 +29,24 @@ if(!user){
       <header>
         <h2 className="text-2xl font-semibold mb-4 text-center">Task Management System</h2>
       </header>
-      
+
       {
         user && <Navbar></Navbar>
       }
-     
+
       <Routes>
         <Route path="/" element={<Login />} />
-      {user && <><Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile" element={<Profile />}/>        
-          <Route path="/task" element={<Task></Task>}/>
-          <Route path="/teamManagement" element={<TeamManagement></TeamManagement>}/></>
-          }
-          <Route path="/register" element={<Register />} />
-          {/* <Route path="/teams" element={<TeamList />} />
+        {user && <><Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/task" element={<Task></Task>} />
+          <Route path="/teamManagement" element={<TeamManagement></TeamManagement>} /></>
+        }
+        <Route path="/register" element={<Register />} />
+        {/* <Route path="/teams" element={<TeamList />} />
           <Route path="/teamDetail" element={<TeamDetail />} />
           <Route path="/tasks" element={<TaskList />} /> 
           <Route path="/tasks/create" element={<TaskForm />} />*/}
-        
+
       </Routes>
     </div>
 

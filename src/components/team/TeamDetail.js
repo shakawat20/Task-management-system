@@ -16,7 +16,7 @@ function TeamDetail() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Task asdsdsdsdsdsdsdsdsdManagement</h1>
+      <h1 className="text-2xl font-bold mb-4">Task Management</h1>
       <div className="mb-4">
         <h2 className="text-xl font-semibold mb-2">Create a New Task</h2>
         <input

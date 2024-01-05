@@ -41,7 +41,30 @@ function TaskForm({ addTask }) {
       status:'pending',
       email:''
     });
+    addingTask(task)
   };
+
+ const addingTask=(task)=>{
+  fetch('https://task-management-server-self.vercel.app/task',
+    {
+      method:"POST",
+      headers: { "Content-Type": "application/json" },
+      body:JSON.stringify(task)
+    }
+    
+    )
+ }
+  // if(task){
+  //   fetch('https://task-management-server-self.vercel.app/task',
+  //   {
+  //     method:"POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body:JSON.stringify(task)
+  //   }
+    
+    
+  //   )
+  // }
 
   return (
     <div className="bg-gray-100 p-4 rounded shadow">
